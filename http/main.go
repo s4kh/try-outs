@@ -23,7 +23,16 @@ func main() {
 		log.Fatalln("error during get:", err)
 	}
 
-	cw := customWriter{}
+	// cw := customWriter{}
 
-	io.Copy(cw, resp.Body)
+	// io.Copy(cw, resp.Body)
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalln("error during response body read: ", err)
+	}
+
+	resp.Body.Close()
+
+	fmt.Println(string(body))
 }
